@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChotuAI Chat</title>
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.png">
+    <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  </head>
+  <body>
+    <div class="container">
+        <img src="./assets/favicon.png" id="logo"/>
+      <h1 class="title animate__animated animate__fadeInDown">ChotuAI Chat</h1>
+      <div class="chat-container animate__animated animate__fadeInUp">
+        <div id="chatBox" class="chat-box"></div>
+        <div class="input-container">
+          <textarea id="inputBox" class="dark-theme" placeholder="Throw your Prompt here..." oninput="autoResize()" onkeypress="handleKeyPress(event)"></textarea>
+          <button onclick="sendMessage()">Ask?</button>
+        </div>
+      </div>
+      <div id="loading" class="loading animate__animated animate__fadeIn"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        async function sendMessage() {
+            const input = document.getElementById('inputBox').value.trim();
+            if (input === '') {
+              alert('Please enter a message!');
+              return;
+            }
+          
+            // Show loading indicator
+            document.getElementById('loading').style.display = 'block';
+          
+            try {
+              const response = await axios.get(`http://localhost:3000/prompt/${input}`);
+              const responseData = response.data.generated;
+          
+              // Hide loading indicator
+              document.getElementById('loading').style.display = 'none';
+          
+              // Append response to chat box
+              appendMessage(input, 'user');
+              appendMessage(responseData, 'bot');
+          
+              // Clear input box
+              document.getElementById('inputBox').value = '';
+              autoResize(); // Reset the textarea height
+            } catch (error) {
+              console.error('Error:', error);
+          
+              // Hide loading indicator
+              document.getElementById('loading').style.display = 'none';
+          
+              // Show error message in chat box
+              appendMessage('Error processing message. Please try again.', 'error');
+            }
+          }
+          
+          function appendMessage(message, sender) {
+            const chatBox = document.getElementById('chatBox');
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', sender);
+            messageElement.innerText = message;
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
+          }
+
+          function autoResize() {
+            const textarea = document.getElementById('inputBox');
+            textarea.style.height = 'auto'; // Reset textarea height
+            textarea.style.height = textarea.scrollHeight + 'px'; // Set new textarea height
+          }
+
+          function handleKeyPress(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+              event.preventDefault();
+              sendMessage();
+            } else if (event.key === 'Enter' && event.shiftKey) {
+              autoResize();
+            }
+          }
+    </script>
+  </body>
+</html>

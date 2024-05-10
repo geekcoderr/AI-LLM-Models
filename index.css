@@ -1,0 +1,218 @@
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+}
+
+/* Apply a background image for the watery effect */
+body {
+    background-image: url('./assets/wall6.jpg'); /* Replace './assets/wall6.jpg' with your actual background image URL */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;
+}
+
+/* Color scheme */
+:root {
+    --primary-color: #020B26;
+    --secondary-color: #024059;
+    --accent-color-1: #026873;
+    --accent-color-2: #04D9D9;
+    --accent-color-3: #05F2DB;
+    --dark-black: #000000;
+    --light-gray: #f5f5f5;
+    --off-white: #f8f8f8;
+}
+
+/* Style for the container */
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: rgba(255, 255, 255, 0.1); /* Adjust the alpha value to control transparency */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Style for the title */
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 32px;
+    color: var(--accent-color-2);
+}
+
+/* Style for the chat container */
+.chat-container {
+    background-color: rgba(255, 255, 255, 0.1); /* Adjust the alpha value to control transparency */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Style for the chat box */
+.chat-box {
+    max-height: 300px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--light-gray) var(--off-white);
+}
+
+.chat-box::-webkit-scrollbar {
+    width: 10px;
+}
+
+.chat-box::-webkit-scrollbar-track {
+    background: var(--off-white);
+}
+
+.chat-box::-webkit-scrollbar-thumb {
+    background-color: var(--light-gray);
+    border-radius: 20px;
+    border: 3px solid var(--off-white);
+}
+
+/* Style for individual messages */
+.message {
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    word-wrap: break-word;
+    color: white;
+}
+
+/* Style for user messages */
+.user {
+    background-color: var(--accent-color-1);
+}
+
+/* Style for bot messages */
+.bot {
+    background-color: var(--accent-color-2);
+}
+
+/* Style for error messages */
+.error {
+    color: red;
+}
+
+/* Style for the input container */
+.input-container {
+    margin-top: 20px;
+    display: flex;
+}
+
+/* Style for the input box */
+#inputBox {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    margin-right: 10px;
+    /* background-color: var(--dark-black); */
+    background-color:rgb(255, 145, 0);
+    background-color: rgb(196, 202, 196);
+    color:#000000;
+    font-weight: 900;
+}
+
+/* Style for the send button */
+button {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 900;
+}
+
+/* Hover effect for the send button */
+button:hover {
+    background-color: var(--accent-color-3);
+}
+
+/* Loading indicator */
+#loading {
+    text-align: center;
+    margin-top: 20px;
+    display: none;
+    color: var(--accent-color-3);
+    /* color:#000000; */    
+    font-size: 80px;
+}
+
+/* Continuous animated effects */
+.animate__animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+.animate__fadeInDown {
+    animation-name: fadeInDown;
+}
+.animate__fadeInUp {
+    animation-name: fadeInUp;
+}
+.animate__fadeIn {
+    animation-name: fadeIn;
+}
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Loading animation */
+@keyframes loading {
+    0% {
+        content: '.';
+    }
+    25% {
+        content: '..';
+    }
+    50% {
+        content: '...';
+    }
+    75% {
+        content: '..';
+    }
+    100% {
+        content: '.';
+    }
+}
+
+.loading::after {
+    content: 'Loading';
+    animation: loading 1s infinite;
+}
+
+#logo{
+    width: 50px;
+}
